@@ -5,7 +5,7 @@ This repository contains the official code of the Noisy Offline Learning of Acti
 
 
 ## Installation
-The following instructions have been tested on macOS Ventura 13.3.1
+The following instructions have been tested on macOS Sonoma 14.5
 
 
 1. Clone this repository:
