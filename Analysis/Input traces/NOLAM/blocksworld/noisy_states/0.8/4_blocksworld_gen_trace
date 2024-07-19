@@ -1,0 +1,21 @@
+(observation
+
+(:state (clear b2) (holding b1) (holding b2) (holding b4) (on b1 b1) (on b1 b2) (on b1 b4) (on b2 b1) (on b2 b2) (on b2 b3) (on b3 b1) (on b3 b2) (on b3 b3) (on b4 b1) (on b4 b2) (on b4 b3) (on b4 b4) (ontable b2) (not (clear b1)) (not (clear b3)) (not (clear b4)) (not (handempty)) (not (holding b3)) (not (on b1 b3)) (not (on b2 b4)) (not (on b3 b4)) (not (ontable b1)) (not (ontable b3)) (not (ontable b4)))
+
+(:action (unstack b2 b4))
+
+(:state (clear b2) (handempty) (holding b1) (holding b3) (on b1 b1) (on b1 b2) (on b2 b1) (on b2 b2) (on b2 b3) (on b2 b4) (on b3 b1) (on b3 b2) (on b3 b3) (on b3 b4) (on b4 b1) (on b4 b2) (on b4 b3) (on b4 b4) (ontable b3) (not (clear b1)) (not (clear b3)) (not (clear b4)) (not (holding b2)) (not (holding b4)) (not (on b1 b3)) (not (on b1 b4)) (not (ontable b1)) (not (ontable b2)) (not (ontable b4)))
+
+(:action (put-down b2))
+
+(:state (clear b1) (clear b4) (handempty) (holding b1) (holding b2) (holding b3) (on b1 b1) (on b1 b2) (on b1 b4) (on b2 b2) (on b2 b3) (on b2 b4) (on b3 b2) (on b3 b3) (on b3 b4) (on b4 b1) (on b4 b2) (on b4 b3) (not (clear b2)) (not (clear b3)) (not (holding b4)) (not (on b1 b3)) (not (on b2 b1)) (not (on b3 b1)) (not (on b4 b4)) (not (ontable b1)) (not (ontable b2)) (not (ontable b3)) (not (ontable b4)))
+
+(:action (pick-up b4))
+
+(:state (clear b1) (clear b2) (clear b3) (handempty) (holding b2) (holding b3) (on b1 b1) (on b1 b2) (on b1 b3) (on b1 b4) (on b2 b1) (on b2 b3) (on b3 b1) (on b3 b2) (on b3 b4) (on b4 b1) (on b4 b4) (ontable b1) (ontable b4) (not (clear b4)) (not (holding b1)) (not (holding b4)) (not (on b2 b2)) (not (on b2 b4)) (not (on b3 b3)) (not (on b4 b2)) (not (on b4 b3)) (not (ontable b2)) (not (ontable b3)))
+
+(:action (stack b4 b1))
+
+(:state (clear b1) (handempty) (holding b1) (holding b2) (holding b4) (on b1 b1) (on b1 b2) (on b1 b4) (on b2 b1) (on b2 b2) (on b2 b3) (on b2 b4) (on b3 b1) (on b3 b2) (on b3 b3) (on b3 b4) (on b4 b2) (on b4 b3) (on b4 b4) (ontable b1) (ontable b2) (ontable b3) (ontable b4) (not (clear b2)) (not (clear b3)) (not (clear b4)) (not (holding b3)) (not (on b1 b3)) (not (on b4 b1)))
+
+)

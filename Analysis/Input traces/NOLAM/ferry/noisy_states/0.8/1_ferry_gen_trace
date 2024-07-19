@@ -1,0 +1,15 @@
+(observation
+
+(:state (at c0 l1) (at-ferry l0) (at-ferry l1) (at-ferry l2) (empty-ferry) (not-eq l0 l0) (not-eq l0 l2) (not-eq l1 l1) (not-eq l2 l2) (on c0) (not (at c0 l0)) (not (at c0 l2)) (not (not-eq l0 l1)) (not (not-eq l1 l0)) (not (not-eq l1 l2)) (not (not-eq l2 l0)) (not (not-eq l2 l1)))
+
+(:action (board c0 l2))
+
+(:state (at c0 l0) (at c0 l1) (at c0 l2) (at-ferry l1) (at-ferry l2) (empty-ferry) (not-eq l0 l0) (not-eq l1 l1) (not-eq l1 l2) (not-eq l2 l2) (not (at-ferry l0)) (not (not-eq l0 l1)) (not (not-eq l0 l2)) (not (not-eq l1 l0)) (not (not-eq l2 l0)) (not (not-eq l2 l1)) (not (on c0)))
+
+(:action (sail l2 l0))
+
+(:state (at c0 l0) (at c0 l1) (at c0 l2) (at-ferry l0) (at-ferry l1) (at-ferry l2) (empty-ferry) (not-eq l0 l0) (not-eq l1 l1) (not-eq l2 l2) (on c0) (not (not-eq l0 l1)) (not (not-eq l0 l2)) (not (not-eq l1 l0)) (not (not-eq l1 l2)) (not (not-eq l2 l0)) (not (not-eq l2 l1)))
+
+(:action (debark c0 l0))
+
+(:state (at c0 l0) (at c0 l2) (at-ferry l0) (at-ferry l1) (at-ferry l2) (not-eq l1 l1) (not-eq l2 l2) (on c0) (not (at c0 l1)) (not (empty-ferry)) (not (not-eq l0 l0)) (not (not-eq l0 l1)) (not (not-eq l0 l2)) (not (not-eq l1 l0)) (not (not-eq l1 l2)) (not (not-eq l2 l0)) (not (not-eq l2 l1))))

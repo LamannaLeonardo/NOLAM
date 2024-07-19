@@ -1,0 +1,25 @@
+(observation
+
+(:state (at bob gate) (at spanner1 gate) (at spanner1 location2) (at spanner1 shed) (carrying bob spanner1) (link gate location1) (link gate location2) (link gate shed) (link location1 gate) (link location2 gate) (link location2 location1) (link location2 location2) (link location2 shed) (link shed gate) (link shed location2) (tightened nut1) (not (at bob location1)) (not (at bob location2)) (not (at bob shed)) (not (at nut1 gate)) (not (at nut1 location1)) (not (at nut1 location2)) (not (at nut1 shed)) (not (at spanner1 location1)) (not (link gate gate)) (not (link location1 location1)) (not (link location1 location2)) (not (link location1 shed)) (not (link shed location1)) (not (link shed shed)) (not (loose nut1)) (not (useable spanner1)))
+
+(:action (walk shed location1 bob))
+
+(:state (at bob gate) (at bob location1) (at bob shed) (at nut1 gate) (at nut1 location1) (at nut1 location2) (at nut1 shed) (at spanner1 gate) (at spanner1 location1) (at spanner1 location2) (at spanner1 shed) (link gate gate) (link gate location2) (link gate shed) (link location1 gate) (link location1 location2) (link location2 location1) (link location2 shed) (link shed gate) (link shed shed) (tightened nut1) (useable spanner1) (not (at bob location2)) (not (carrying bob spanner1)) (not (link gate location1)) (not (link location1 location1)) (not (link location1 shed)) (not (link location2 gate)) (not (link location2 location2)) (not (link shed location1)) (not (link shed location2)) (not (loose nut1)))
+
+(:action (pickup_spanner location1 spanner1 bob))
+
+(:state (at bob gate) (at bob location2) (at nut1 location2) (at spanner1 gate) (at spanner1 location2) (at spanner1 shed) (carrying bob spanner1) (link gate location1) (link gate location2) (link gate shed) (link location1 gate) (link location1 location1) (link location1 location2) (link location1 shed) (link location2 location2) (link location2 shed) (link shed gate) (link shed shed) (tightened nut1) (not (at bob location1)) (not (at bob shed)) (not (at nut1 gate)) (not (at nut1 location1)) (not (at nut1 shed)) (not (at spanner1 location1)) (not (link gate gate)) (not (link location2 gate)) (not (link location2 location1)) (not (link shed location1)) (not (link shed location2)) (not (loose nut1)) (not (useable spanner1)))
+
+(:action (walk location1 location2 bob))
+
+(:state (at bob shed) (at nut1 gate) (at nut1 location1) (at nut1 location2) (at spanner1 gate) (at spanner1 location2) (at spanner1 shed) (carrying bob spanner1) (link gate location2) (link location1 gate) (link location2 location1) (link location2 location2) (link location2 shed) (link shed location2) (link shed shed) (loose nut1) (tightened nut1) (not (at bob gate)) (not (at bob location1)) (not (at bob location2)) (not (at nut1 shed)) (not (at spanner1 location1)) (not (link gate gate)) (not (link gate location1)) (not (link gate shed)) (not (link location1 location1)) (not (link location1 location2)) (not (link location1 shed)) (not (link location2 gate)) (not (link shed gate)) (not (link shed location1)) (not (useable spanner1)))
+
+(:action (walk location2 gate bob))
+
+(:state (at bob location1) (at bob location2) (at bob shed) (at nut1 location1) (at nut1 location2) (at spanner1 gate) (at spanner1 location1) (at spanner1 location2) (at spanner1 shed) (link gate location2) (link gate shed) (link location1 location1) (link location1 location2) (link location1 shed) (link location2 location1) (link location2 shed) (link shed gate) (link shed location2) (link shed shed) (tightened nut1) (useable spanner1) (not (at bob gate)) (not (at nut1 gate)) (not (at nut1 shed)) (not (carrying bob spanner1)) (not (link gate gate)) (not (link gate location1)) (not (link location1 gate)) (not (link location2 gate)) (not (link location2 location2)) (not (link shed location1)) (not (loose nut1)))
+
+(:action (tighten_nut gate spanner1 bob nut1))
+
+(:state (at bob gate) (at bob location1) (at bob location2) (at bob shed) (at nut1 location1) (at nut1 shed) (at spanner1 location1) (at spanner1 shed) (carrying bob spanner1) (link gate gate) (link gate location1) (link gate shed) (link location1 gate) (link location1 shed) (link shed location2) (link shed shed) (loose nut1) (not (at nut1 gate)) (not (at nut1 location2)) (not (at spanner1 gate)) (not (at spanner1 location2)) (not (link gate location2)) (not (link location1 location1)) (not (link location1 location2)) (not (link location2 gate)) (not (link location2 location1)) (not (link location2 location2)) (not (link location2 shed)) (not (link shed gate)) (not (link shed location1)) (not (tightened nut1)) (not (useable spanner1)))
+
+)

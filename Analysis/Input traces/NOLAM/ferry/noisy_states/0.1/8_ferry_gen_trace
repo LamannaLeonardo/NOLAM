@@ -1,0 +1,51 @@
+(observation
+
+(:state (at c0 l1) (at c1 l3) (at c2 l2) (at c3 l1) (at-ferry l3) (empty-ferry) (not-eq l0 l1) (not-eq l0 l2) (not-eq l0 l3) (not-eq l1 l0) (not-eq l1 l1) (not-eq l1 l3) (not-eq l2 l0) (not-eq l2 l1) (not-eq l2 l3) (not-eq l3 l0) (not-eq l3 l1) (not-eq l3 l2) (not (at c0 l0)) (not (at c0 l2)) (not (at c0 l3)) (not (at c1 l0)) (not (at c1 l1)) (not (at c1 l2)) (not (at c2 l0)) (not (at c2 l1)) (not (at c2 l3)) (not (at c3 l0)) (not (at c3 l2)) (not (at c3 l3)) (not (at-ferry l0)) (not (at-ferry l1)) (not (at-ferry l2)) (not (not-eq l0 l0)) (not (not-eq l1 l2)) (not (not-eq l2 l2)) (not (not-eq l3 l3)) (not (on c0)) (not (on c1)) (not (on c2)) (not (on c3)))
+
+(:action (sail l3 l2))
+
+(:state (at c0 l1) (at c1 l0) (at c1 l3) (at c2 l2) (at c3 l1) (at-ferry l2) (empty-ferry) (not-eq l0 l1) (not-eq l0 l2) (not-eq l0 l3) (not-eq l1 l0) (not-eq l1 l2) (not-eq l1 l3) (not-eq l2 l0) (not-eq l2 l1) (not-eq l2 l3) (not-eq l3 l0) (not-eq l3 l1) (not-eq l3 l2) (not-eq l3 l3) (not (at c0 l0)) (not (at c0 l2)) (not (at c0 l3)) (not (at c1 l1)) (not (at c1 l2)) (not (at c2 l0)) (not (at c2 l1)) (not (at c2 l3)) (not (at c3 l0)) (not (at c3 l2)) (not (at c3 l3)) (not (at-ferry l0)) (not (at-ferry l1)) (not (at-ferry l3)) (not (not-eq l0 l0)) (not (not-eq l1 l1)) (not (not-eq l2 l2)) (not (on c0)) (not (on c1)) (not (on c2)) (not (on c3)))
+
+(:action (board c2 l2))
+
+(:state (at c0 l1) (at c1 l3) (at c2 l3) (at c3 l1) (at-ferry l2) (empty-ferry) (not-eq l0 l1) (not-eq l0 l2) (not-eq l0 l3) (not-eq l1 l0) (not-eq l1 l2) (not-eq l1 l3) (not-eq l2 l0) (not-eq l2 l1) (not-eq l2 l3) (not-eq l3 l1) (not-eq l3 l2) (not-eq l3 l3) (on c2) (not (at c0 l0)) (not (at c0 l2)) (not (at c0 l3)) (not (at c1 l0)) (not (at c1 l1)) (not (at c1 l2)) (not (at c2 l0)) (not (at c2 l1)) (not (at c2 l2)) (not (at c3 l0)) (not (at c3 l2)) (not (at c3 l3)) (not (at-ferry l0)) (not (at-ferry l1)) (not (at-ferry l3)) (not (not-eq l0 l0)) (not (not-eq l1 l1)) (not (not-eq l2 l2)) (not (not-eq l3 l0)) (not (on c0)) (not (on c1)) (not (on c3)))
+
+(:action (sail l2 l0))
+
+(:state (at c0 l1) (at c2 l3) (at c3 l1) (at-ferry l0) (at-ferry l2) (at-ferry l3) (not-eq l0 l2) (not-eq l0 l3) (not-eq l1 l0) (not-eq l1 l2) (not-eq l1 l3) (not-eq l2 l0) (not-eq l2 l1) (not-eq l3 l0) (not-eq l3 l2) (on c2) (not (at c0 l0)) (not (at c0 l2)) (not (at c0 l3)) (not (at c1 l0)) (not (at c1 l1)) (not (at c1 l2)) (not (at c1 l3)) (not (at c2 l0)) (not (at c2 l1)) (not (at c2 l2)) (not (at c3 l0)) (not (at c3 l2)) (not (at c3 l3)) (not (at-ferry l1)) (not (empty-ferry)) (not (not-eq l0 l0)) (not (not-eq l0 l1)) (not (not-eq l1 l1)) (not (not-eq l2 l2)) (not (not-eq l2 l3)) (not (not-eq l3 l1)) (not (not-eq l3 l3)) (not (on c0)) (not (on c1)) (not (on c3)))
+
+(:action (debark c2 l0))
+
+(:state (at c0 l1) (at c1 l3) (at c2 l0) (at c3 l1) (at-ferry l0) (not-eq l0 l1) (not-eq l0 l2) (not-eq l0 l3) (not-eq l1 l0) (not-eq l1 l2) (not-eq l1 l3) (not-eq l2 l0) (not-eq l2 l1) (not-eq l2 l3) (not-eq l3 l0) (not-eq l3 l1) (not (at c0 l0)) (not (at c0 l2)) (not (at c0 l3)) (not (at c1 l0)) (not (at c1 l1)) (not (at c1 l2)) (not (at c2 l1)) (not (at c2 l2)) (not (at c2 l3)) (not (at c3 l0)) (not (at c3 l2)) (not (at c3 l3)) (not (at-ferry l1)) (not (at-ferry l2)) (not (at-ferry l3)) (not (empty-ferry)) (not (not-eq l0 l0)) (not (not-eq l1 l1)) (not (not-eq l2 l2)) (not (not-eq l3 l2)) (not (not-eq l3 l3)) (not (on c0)) (not (on c1)) (not (on c2)) (not (on c3)))
+
+(:action (sail l0 l1))
+
+(:state (at c0 l1) (at c1 l3) (at c3 l1) (at-ferry l1) (at-ferry l2) (empty-ferry) (not-eq l0 l1) (not-eq l0 l2) (not-eq l0 l3) (not-eq l1 l0) (not-eq l1 l2) (not-eq l1 l3) (not-eq l2 l0) (not-eq l2 l1) (not-eq l2 l3) (not-eq l3 l0) (not-eq l3 l1) (not-eq l3 l2) (not (at c0 l0)) (not (at c0 l2)) (not (at c0 l3)) (not (at c1 l0)) (not (at c1 l1)) (not (at c1 l2)) (not (at c2 l0)) (not (at c2 l1)) (not (at c2 l2)) (not (at c2 l3)) (not (at c3 l0)) (not (at c3 l2)) (not (at c3 l3)) (not (at-ferry l0)) (not (at-ferry l3)) (not (not-eq l0 l0)) (not (not-eq l1 l1)) (not (not-eq l2 l2)) (not (not-eq l3 l3)) (not (on c0)) (not (on c1)) (not (on c2)) (not (on c3)))
+
+(:action (board c3 l1))
+
+(:state (at c0 l1) (at c1 l2) (at c1 l3) (at c2 l0) (at-ferry l1) (not-eq l0 l1) (not-eq l0 l2) (not-eq l0 l3) (not-eq l1 l2) (not-eq l1 l3) (not-eq l2 l0) (not-eq l2 l1) (not-eq l2 l3) (not-eq l3 l0) (not-eq l3 l1) (not-eq l3 l2) (on c3) (not (at c0 l0)) (not (at c0 l2)) (not (at c0 l3)) (not (at c1 l0)) (not (at c1 l1)) (not (at c2 l1)) (not (at c2 l2)) (not (at c2 l3)) (not (at c3 l0)) (not (at c3 l1)) (not (at c3 l2)) (not (at c3 l3)) (not (at-ferry l0)) (not (at-ferry l2)) (not (at-ferry l3)) (not (empty-ferry)) (not (not-eq l0 l0)) (not (not-eq l1 l0)) (not (not-eq l1 l1)) (not (not-eq l2 l2)) (not (not-eq l3 l3)) (not (on c0)) (not (on c1)) (not (on c2)))
+
+(:action (sail l1 l2))
+
+(:state (at c0 l1) (at c1 l3) (at c2 l0) (at-ferry l2) (not-eq l0 l1) (not-eq l0 l2) (not-eq l0 l3) (not-eq l1 l0) (not-eq l1 l1) (not-eq l1 l2) (not-eq l1 l3) (not-eq l2 l0) (not-eq l2 l1) (not-eq l2 l3) (not-eq l3 l0) (not-eq l3 l1) (not-eq l3 l2) (on c3) (not (at c0 l0)) (not (at c0 l2)) (not (at c0 l3)) (not (at c1 l0)) (not (at c1 l1)) (not (at c1 l2)) (not (at c2 l1)) (not (at c2 l2)) (not (at c2 l3)) (not (at c3 l0)) (not (at c3 l1)) (not (at c3 l2)) (not (at c3 l3)) (not (at-ferry l0)) (not (at-ferry l1)) (not (at-ferry l3)) (not (empty-ferry)) (not (not-eq l0 l0)) (not (not-eq l2 l2)) (not (not-eq l3 l3)) (not (on c0)) (not (on c1)) (not (on c2)))
+
+(:action (debark c3 l2))
+
+(:state (at c0 l1) (at c1 l3) (at c2 l0) (at c2 l3) (at c3 l2) (at-ferry l2) (empty-ferry) (not-eq l0 l1) (not-eq l0 l2) (not-eq l0 l3) (not-eq l1 l0) (not-eq l1 l2) (not-eq l1 l3) (not-eq l2 l1) (not-eq l2 l3) (not-eq l3 l1) (not-eq l3 l2) (not (at c0 l0)) (not (at c0 l2)) (not (at c0 l3)) (not (at c1 l0)) (not (at c1 l1)) (not (at c1 l2)) (not (at c2 l1)) (not (at c2 l2)) (not (at c3 l0)) (not (at c3 l1)) (not (at c3 l3)) (not (at-ferry l0)) (not (at-ferry l1)) (not (at-ferry l3)) (not (not-eq l0 l0)) (not (not-eq l1 l1)) (not (not-eq l2 l0)) (not (not-eq l2 l2)) (not (not-eq l3 l0)) (not (not-eq l3 l3)) (not (on c0)) (not (on c1)) (not (on c2)) (not (on c3)))
+
+(:action (sail l2 l3))
+
+(:state (at c0 l1) (at c0 l3) (at c1 l3) (at c2 l0) (at c2 l1) (at c3 l2) (at c3 l3) (at-ferry l3) (empty-ferry) (not-eq l0 l1) (not-eq l0 l2) (not-eq l0 l3) (not-eq l1 l0) (not-eq l1 l2) (not-eq l1 l3) (not-eq l2 l0) (not-eq l2 l1) (not-eq l2 l3) (not-eq l3 l0) (not-eq l3 l1) (not (at c0 l0)) (not (at c0 l2)) (not (at c1 l0)) (not (at c1 l1)) (not (at c1 l2)) (not (at c2 l2)) (not (at c2 l3)) (not (at c3 l0)) (not (at c3 l1)) (not (at-ferry l0)) (not (at-ferry l1)) (not (at-ferry l2)) (not (not-eq l0 l0)) (not (not-eq l1 l1)) (not (not-eq l2 l2)) (not (not-eq l3 l2)) (not (not-eq l3 l3)) (not (on c0)) (not (on c1)) (not (on c2)) (not (on c3)))
+
+(:action (board c1 l3))
+
+(:state (at c0 l1) (at c1 l0) (at c2 l0) (at c3 l2) (at-ferry l3) (not-eq l0 l1) (not-eq l0 l2) (not-eq l0 l3) (not-eq l1 l2) (not-eq l1 l3) (not-eq l2 l0) (not-eq l2 l1) (not-eq l2 l3) (not-eq l3 l1) (not-eq l3 l2) (not-eq l3 l3) (on c1) (not (at c0 l0)) (not (at c0 l2)) (not (at c0 l3)) (not (at c1 l1)) (not (at c1 l2)) (not (at c1 l3)) (not (at c2 l1)) (not (at c2 l2)) (not (at c2 l3)) (not (at c3 l0)) (not (at c3 l1)) (not (at c3 l3)) (not (at-ferry l0)) (not (at-ferry l1)) (not (at-ferry l2)) (not (empty-ferry)) (not (not-eq l0 l0)) (not (not-eq l1 l0)) (not (not-eq l1 l1)) (not (not-eq l2 l2)) (not (not-eq l3 l0)) (not (on c0)) (not (on c2)) (not (on c3)))
+
+(:action (sail l3 l2))
+
+(:state (at c0 l0) (at c0 l1) (at c2 l0) (at c3 l0) (at c3 l2) (at c3 l3) (not-eq l0 l1) (not-eq l0 l2) (not-eq l0 l3) (not-eq l1 l0) (not-eq l1 l2) (not-eq l1 l3) (not-eq l2 l0) (not-eq l2 l1) (not-eq l2 l3) (not-eq l3 l0) (not-eq l3 l1) (not-eq l3 l2) (on c1) (on c3) (not (at c0 l2)) (not (at c0 l3)) (not (at c1 l0)) (not (at c1 l1)) (not (at c1 l2)) (not (at c1 l3)) (not (at c2 l1)) (not (at c2 l2)) (not (at c2 l3)) (not (at c3 l1)) (not (at-ferry l0)) (not (at-ferry l1)) (not (at-ferry l2)) (not (at-ferry l3)) (not (empty-ferry)) (not (not-eq l0 l0)) (not (not-eq l1 l1)) (not (not-eq l2 l2)) (not (not-eq l3 l3)) (not (on c0)) (not (on c2)))
+
+(:action (debark c1 l2))
+
+(:state (at c0 l1) (at c1 l2) (at c2 l0) (at c3 l2) (at-ferry l0) (empty-ferry) (not-eq l0 l1) (not-eq l0 l2) (not-eq l0 l3) (not-eq l1 l0) (not-eq l1 l2) (not-eq l1 l3) (not-eq l2 l1) (not-eq l2 l3) (not-eq l3 l0) (not-eq l3 l1) (not-eq l3 l2) (not (at c0 l0)) (not (at c0 l2)) (not (at c0 l3)) (not (at c1 l0)) (not (at c1 l1)) (not (at c1 l3)) (not (at c2 l1)) (not (at c2 l2)) (not (at c2 l3)) (not (at c3 l0)) (not (at c3 l1)) (not (at c3 l3)) (not (at-ferry l1)) (not (at-ferry l2)) (not (at-ferry l3)) (not (not-eq l0 l0)) (not (not-eq l1 l1)) (not (not-eq l2 l0)) (not (not-eq l2 l2)) (not (not-eq l3 l3)) (not (on c0)) (not (on c1)) (not (on c2)) (not (on c3))))
