@@ -30,6 +30,9 @@ class Trace:
 
         return trace
 
+    def __eq__(self, other):
+        return str(self) == str(other)
+
 
     def add_observation(self, obs):
         self.observations.append(obs)
