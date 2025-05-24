@@ -13,6 +13,7 @@ class ActionModel:
 
     def __init__(self, input_file=None):
         self.input_file = input_file
+        self.name = None
         self.types_hierarchy = None
         self.operators = None
         self.predicates = None
@@ -25,13 +26,21 @@ class ActionModel:
             os.remove(f'{input_file}_clean')
 
 
-    def __str__(self):
-        return "\n\n".join(self.operators)
-
-
     def read(self, f_name):
+
+        # Read domain name
+        with open(f_name, 'r') as f:
+            data = [el.strip() for el in f.read().split("\n")]
+            self.name = re.findall("domain.+?\)","".join(data))[0].strip()[:-1].split()[-1].strip()
+        self.name = re.findall("domain.+?\)", "".join(data))[0].strip()[:-1].split()[-1].strip()
+
+        # Read object types hierarchy
         self.types_hierarchy = self.read_object_types_hierarchy(f_name)
+
+        # Read domain operators
         self.operators = self.read_operators(f_name)
+
+        # Read domain predicates
         self.predicates = self.read_predicates(f_name)
 
 
@@ -314,92 +323,94 @@ class ActionModel:
 
         return sorted(relevant_predicates)
 
+    def __str__(self):
 
-    def write(self, f_name):
+        # Write domain name and requirements
+        domain_str = (f"(define (domain {self.name})"
+                      f"\n(:requirements :typing)")
 
-        with open(self.input_file, 'r') as f:
-            data = [el.strip() for el in f.read().split("\n")]
-            domain_name = re.findall("domain.+?\)","".join(data))[0].strip()[:-1].split()[-1].strip()
+        # Write types
+        domain_str += "\n(:types"
 
-        with open(f_name, 'w') as f:
+        # Remove redundant supertypes, i.e. supertypes in their subtypes
+        types_hierarchy = copy.deepcopy(self.types_hierarchy)
+        types_hierarchy = {k: [t for t in v if t != k] for k, v in types_hierarchy.items()}
 
-            # Write domain name and requirements
-            f.write(f"(define (domain {domain_name})"
-                    f"\n(:requirements)")
+        # Remove redundant subtypes, e.g. if a = super(b) and b = super(c), remove a from c explicit subtypes since 'a' is implicitly subtype of 'c'
+        for supertype, subtypes in types_hierarchy.items():
+            for k, v in types_hierarchy.items():
+                if k != supertype and k != 'objects' and k in subtypes:
+                    types_hierarchy[supertype] = [v for v in subtypes if v not in types_hierarchy[k]]
 
-            # Write types
-            f.write("\n(:types")
+        for supertype, subtypes in types_hierarchy.items():
+            subtypes = [t for t in subtypes if t != supertype]
+            if supertype != 'objects':
+                domain_str += "\n\t{} - {}".format('\n\t'.join(subtypes), supertype)
+            elif len(self.types_hierarchy.keys()) == 1 and supertype == 'objects':
+                domain_str += "\n\t{}".format('\n\t'.join(subtypes))
+        domain_str += "\n)"
 
-            # Remove redundant supertypes, i.e. supertypes in their subtypes
-            types_hierarchy = copy.deepcopy(self.types_hierarchy)
-            types_hierarchy = {k: [t for t in v if t != k] for k, v in types_hierarchy.items()}
+        # Write predicates
+        domain_str += "\n(:predicates"
+        for p in self.predicates:
+            p_name = p.split('(')[0]
+            p_types = [t for t in p.split('(')[1][:-1].split(',') if t.strip() != '']
+            if len(p_types) > 0:
+                domain_str += f"\n\t({p_name} {' '.join([f'?param_{i + 1} - {p_type}' for i, p_type in enumerate(p_types)])})"
+            else:
+                domain_str += f"\n\t({p_name})"
+        domain_str += "\n)\n\n"
 
-            # Remove redundant subtypes, e.g. if a = super(b) and b = super(c), remove a from c explicit subtypes since 'a' is implicitly subtype of 'c'
-            for supertype, subtypes in types_hierarchy.items():
-                for k, v in types_hierarchy.items():
-                    if k != supertype and k != 'objects' and k in subtypes:
-                        types_hierarchy[supertype] = [v for v in subtypes if v not in types_hierarchy[k]]
+        # Write operators with certain preconditions and effects
+        for operator in self.operators:
+            domain_str += f"\n(:action {operator.operator_name}"
+            domain_str += "\n:parameters ({})".format(
+                " ".join(['{} - {}'.format(param, obj_type) for param, obj_type in operator.parameters.items()]))
 
-
-            for supertype, subtypes in types_hierarchy.items():
-                subtypes = [t for t in subtypes if t != supertype]
-                if supertype != 'objects':
-                    f.write("\n\t{} - {}".format('\n\t'.join(subtypes), supertype))
-                elif len(self.types_hierarchy.keys()) == 1 and supertype == 'objects':
-                    f.write("\n\t{}".format('\n\t'.join(subtypes)))
-            f.write("\n)")
-
-            # Write predicates
-            f.write("\n(:predicates")
-            for p in self.predicates:
-                p_name = p.split('(')[0]
-                p_types = [t for t in p.split('(')[1][:-1].split(',') if t.strip() != '']
-                if len(p_types) > 0:
-                    f.write(f"\n\t({p_name} {' '.join([f'?param_{i + 1} - {p_type}' for i, p_type in enumerate(p_types)])})")
-                else:
-                    f.write(f"\n\t({p_name})")
-            f.write("\n)\n\n")
-
-            # Write operators with certain preconditions and effects
-            for operator in self.operators:
-                f.write(f"\n(:action {operator.operator_name}")
-                f.write("\n:parameters ({})".format(" ".join(['{} - {}'.format(param, obj_type) for param, obj_type in operator.parameters.items()])))
-
-                # Format preconditions and effects syntax
-                precs_cert = []
-                for p in operator.precs_pos:
-                    if p.startswith('not(') or p.startswith("(not "):
-                        p = p[4:-1]
-                        if len([o for o in "(".join(p.split('(')[1:])[:-1].split(',') if o != '']) > 0:
-                            precs_cert.append("(not ({} {}))".format(p.split('(')[0], " ".join("(".join(p.split('(')[1:])[:-1].split(','))))
-                        else:
-                            precs_cert.append(f"(not ({p.split('(')[0].strip()}))")
-                    elif len([o for o in "(".join(p.split('(')[1:])[:-1].split(',') if o != '']) > 0:
-                        precs_cert.append("({} {})".format(p.split('(')[0], " ".join("(".join(p.split('(')[1:])[:-1].split(','))))
-                    else:
-                        precs_cert.append(f"({p.split('(')[0].strip()})")
-
-                for p in operator.precs_neg:
+            # Format preconditions and effects syntax
+            precs_cert = []
+            for p in operator.precs_pos:
+                if p.startswith('not(') or p.startswith("(not "):
+                    p = p[4:-1]
                     if len([o for o in "(".join(p.split('(')[1:])[:-1].split(',') if o != '']) > 0:
-                        precs_cert.append("(not ({} {}))".format(p.split('(')[0], " ".join("(".join(p.split('(')[1:])[:-1].split(','))))
+                        precs_cert.append("(not ({} {}))".format(p.split('(')[0],
+                                                                 " ".join("(".join(p.split('(')[1:])[:-1].split(','))))
                     else:
                         precs_cert.append(f"(not ({p.split('(')[0].strip()}))")
+                elif len([o for o in "(".join(p.split('(')[1:])[:-1].split(',') if o != '']) > 0:
+                    precs_cert.append(
+                        "({} {})".format(p.split('(')[0], " ".join("(".join(p.split('(')[1:])[:-1].split(','))))
+                else:
+                    precs_cert.append(f"({p.split('(')[0].strip()})")
 
-                eff_pos_cert = ["({} {})".format(p.split('(')[0], " ".join(p.split('(')[1][:-1].split(',')))
-                                if len([o for o in p.split('(')[1][:-1].split(',') if o != '']) > 0 else "({})".format(p.split('(')[0])
-                                for p in operator.eff_pos]
+            for p in operator.precs_neg:
+                if len([o for o in "(".join(p.split('(')[1:])[:-1].split(',') if o != '']) > 0:
+                    precs_cert.append(
+                        "(not ({} {}))".format(p.split('(')[0], " ".join("(".join(p.split('(')[1:])[:-1].split(','))))
+                else:
+                    precs_cert.append(f"(not ({p.split('(')[0].strip()}))")
 
-                eff_neg_cert = ["(not ({} {}))".format(p.split('(')[0], " ".join(p.split('(')[1][:-1].split(',')))
-                                if len([o for o in p.split('(')[1][:-1].split(',') if o != '']) > 0 else "(not ({}))".format(p.split('(')[0])
-                                for p in operator.eff_neg]
+            eff_pos_cert = ["({} {})".format(p.split('(')[0], " ".join(p.split('(')[1][:-1].split(',')))
+                            if len([o for o in p.split('(')[1][:-1].split(',') if o != '']) > 0 else "({})".format(
+                p.split('(')[0])
+                            for p in operator.eff_pos]
 
-                f.write("\n:precondition\t(and\n\t{}\n)".format("\n\t".join(precs_cert)))
+            eff_neg_cert = ["(not ({} {}))".format(p.split('(')[0], " ".join(p.split('(')[1][:-1].split(',')))
+                            if len(
+                [o for o in p.split('(')[1][:-1].split(',') if o != '']) > 0 else "(not ({}))".format(p.split('(')[0])
+                            for p in operator.eff_neg]
 
-                f.write("\n:effect\t(and\n\t{}\n)".format("\n\t".join(eff_pos_cert + eff_neg_cert)))
-                f.write('\n)\n\n')
+            domain_str += "\n:precondition\t(and\n\t{}\n)".format("\n\t".join(precs_cert))
 
-            f.write('\n\n)')
+            domain_str += "\n:effect\t(and\n\t{}\n)".format("\n\t".join(eff_pos_cert + eff_neg_cert))
+            domain_str += '\n)\n\n'
 
+        domain_str += '\n\n)'
+        return domain_str
+
+    def write(self, f_name):
+        with open(f_name, 'w') as f:
+            f.write(self.__str__())
 
     def clean_pddl_domain_file(self, f_name):
 
