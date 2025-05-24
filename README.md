@@ -43,7 +43,8 @@ and exploit the learned domain in large environments).
 A model can then be learned as follows:
 ```
 from NOLAM.Learner import Learner
-model = Learner().learn('path/to/domain.pddl', ['path/to/trace0', 'path/to/trace1'], noise_rate=0.1)
+noise_rate = 0.1
+model = Learner().learn('path/to/domain.pddl', ['path/to/trace0', 'path/to/trace1'], e=noise_rate)
 print(model)
 ```
 
