@@ -10,6 +10,7 @@ import pandas as pd
 
 from Util.metrics import eval_model
 
+
 if __name__ == "__main__":
 
     random.seed(Configuration.RANDOM_SEED)
@@ -26,6 +27,7 @@ if __name__ == "__main__":
     results = pd.DataFrame()
 
     for domain in domains:
+    # for domain in ['blocksworld', 'barman']:
 
         results_dir = os.path.join("Analysis/Results", "NOLAM", 'noisy_states', f"run{run}", domain)
 
@@ -73,7 +75,7 @@ if __name__ == "__main__":
 
             l = Learner()
 
-            domain_learned = l.learn(trace_names, noise_rate)
+            domain_learned = l.learn('PDDL/domain_empty.pddl', trace_names, noise_rate)
 
             end = datetime.datetime.now()
             cpu_time = (end - start).microseconds * 1e-6

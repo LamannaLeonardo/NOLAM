@@ -11,19 +11,14 @@ from NOLAM.ActionModel import ActionModel
 from NOLAM.Observation import Observation
 from NOLAM.Trace import Trace
 
+
 class Learner:
 
     def __init__(self):
+        self.op_stats = None
 
-        # Initialize action model with input one
-        self.action_model = ActionModel(input_file='PDDL/domain_empty.pddl')
-        self.action_model.init_prec_eff()
-        self.op_stats = {o.operator_name: {p: {'pos-pos': 0, 'pos-neg': 0, 'neg-pos': 0, 'neg-neg': 0}
-                                           for p in o.eff_pos}
-                         for o in self.action_model.operators}
-
-    def count_traces(self, trace_names):
-        traces = [self.parse_trace(t) for t in trace_names]
+    def count_traces(self, trace_names, action_model):
+        traces = [self.parse_trace(t, action_model) for t in trace_names]
         for trace in traces:
             for i in range(len(trace.observations) - 1):
 
@@ -95,7 +90,7 @@ class Learner:
 
         return self.op_stats
 
-    def parse_trace(self, input_trace):
+    def parse_trace(self, input_trace, action_model):
 
         with open(input_trace, 'r') as f:
             data = [el.strip() for el in f.read().split("\n") if el.strip() != '']
@@ -156,7 +151,7 @@ class Learner:
                     a_name = a.strip()[1:-1].split()[0]
                     a = a.strip()[1:-1]
 
-                    operator = next((o for o in self.action_model.operators if o.operator_name == a_name), None)
+                    operator = next((o for o in action_model.operators if o.operator_name == a_name), None)
 
                     if len(a.split()) > 1:
                         objects = a.split()[1:]
@@ -170,14 +165,14 @@ class Learner:
                     action_eff_neg_cert = {self.ground_lifted_atom(params_bind, p) for p in operator.eff_neg}
                     action = Action(a_name, objects, action_precs_pos, action_precs_neg, action_eff_pos_cert, action_eff_neg_cert)
 
-                    ground_model_actions = [str(a) for a in self.action_model.ground_actions[action.operator_name]]
+                    ground_model_actions = [str(a) for a in action_model.ground_actions[action.operator_name]]
                     if str(action) not in ground_model_actions:
                         trace_actions.append(action)
-                        self.action_model.ground_actions[action.operator_name].append(action)
-                        self.action_model.ground_action_labels.add(str(action))
+                        action_model.ground_actions[action.operator_name].append(action)
+                        action_model.ground_action_labels.add(str(action))
                     else:
                         action_idx = ground_model_actions.index(str(action))
-                        trace_actions.append(self.action_model.ground_actions[action.operator_name][action_idx])
+                        trace_actions.append(action_model.ground_actions[action.operator_name][action_idx])
 
         return Trace(input_trace, trace_observations, trace_actions)
 
@@ -205,10 +200,17 @@ class Learner:
 
         return lifted_precs
 
-    def learn(self, trace_names, e):
-        op_stats = self.count_traces(trace_names)
+    def learn(self, input_file, trace_names, e):
 
-        domain_learned = ActionModel(input_file='PDDL/domain_empty.pddl')
+        domain_learned = ActionModel(input_file)
+        domain_learned.empty()
+        domain_learned.init_prec_eff()
+        self.op_stats = {o.operator_name: {p: {'pos-pos': 0, 'pos-neg': 0, 'neg-pos': 0, 'neg-neg': 0}
+                                           for p in o.eff_pos}
+                         for o in domain_learned.operators}
+        # Parse traces by considering action model with all possible precs/effs
+        op_stats = self.count_traces(trace_names, domain_learned)
+
         domain_learned.empty()
 
         for operator in domain_learned.operators:
