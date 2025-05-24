@@ -1,11 +1,10 @@
-import copy
 import itertools
 import math
 import re
 
 import numpy as np
 
-import Configuration
+from NOLAM import Configuration
 from NOLAM.Action import Action
 from NOLAM.ActionModel import ActionModel
 from NOLAM.Observation import Observation
