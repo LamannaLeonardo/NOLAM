@@ -146,6 +146,11 @@ class ActionModel:
             objects_row = [el.replace(")","").strip()
                            for el in re.findall(":types.*\(:predicates","++".join(data))[0].replace(":types","").replace("(:predicates", "").split("++")
                            if el.strip() != ""]
+            if "(:constants" in '\n'.join(data):
+                objects_row = [el.replace(")", "").strip()
+                               for el in re.findall(r":types.*\(:constants", "++".join(data))[0]
+                               .replace(":types", "").replace("(:constants", "").split("++")
+                               if el.strip() != ""]
 
             objects = defaultdict(list)
             obj_of_same_type = []
