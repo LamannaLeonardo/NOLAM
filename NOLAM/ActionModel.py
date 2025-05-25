@@ -395,9 +395,10 @@ class ActionModel:
 
         # Write constants
         if len(self.constants) > 0:
-            f.write("\n(:constants")
-            [f.write(f"\n{' '.join(v)} - {k}") for k, v in self.constants.items()]
-            f.write("\n)\n")
+            domain_str += "\n(:constants"
+            for k, v in self.constants.items():
+                domain_str += f"\n{' '.join(v)} - {k}"
+            domain_str += "\n)\n"
 
         # Write predicates
         domain_str += "\n(:predicates"
