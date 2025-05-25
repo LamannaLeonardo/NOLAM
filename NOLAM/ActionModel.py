@@ -15,6 +15,7 @@ class ActionModel:
         self.input_file = input_file
         self.name = None
         self.types_hierarchy = None
+        self.constants = None
         self.operators = None
         self.predicates = None
         self.ground_actions = defaultdict(list)
@@ -36,6 +37,9 @@ class ActionModel:
 
         # Read object types hierarchy
         self.types_hierarchy = self.read_object_types_hierarchy(f_name)
+
+        # Read constants
+        self.constants = self.read_constants(f_name)
 
         # Read domain operators
         self.operators = self.read_operators(f_name)
@@ -93,6 +97,43 @@ class ActionModel:
                                 if len(p[1:-1].split()) > 1 else f"{p[1:-1].split()[0]}()" for p in eff_neg_superset}
             # operator.eff_neg_uncert = {p: 0. for p in eff_neg_superset}
             operator.eff_neg = eff_neg_superset
+            
+    def read_constants(self, f_name):
+        with open(f_name, 'r') as f:
+            data = f.read().split("\n")
+
+            objects_row = [el.replace(")","").strip()
+                           for el in re.findall(r":constants.*\(:predicates","++".join(data))[0].replace(":constants","").replace("(:predicates", "").split("++")
+                           if el.strip() != ""]
+
+            objects = defaultdict(list)
+            obj_of_same_type = []
+
+            for row in objects_row:
+                row = row.replace("(", "").replace(")", "")
+                if row.find("- ") != -1:
+                    objects[row.strip().split("- ")[1].strip()].extend([el.strip()
+                                                                        for el in row.strip().split("- ")[0].strip().split()]
+                                                                       + obj_of_same_type
+                                                                       + [row.strip().split("- ")[1].strip()])
+                    obj_of_same_type = []
+                else:
+                    [obj_of_same_type.append(el) for el in row.split()]
+
+            for object_key, object_values in objects.items():
+                if object_key != 'objects':
+
+                    for val in object_values:
+
+                        for key in objects.keys():
+                            if val == key:
+                                objects[object_key] = [el for el in objects[object_key] + objects[val]
+                                                       if el != object_key]
+
+            for key in objects.keys():
+                objects[key] = list(set(objects[key]))
+
+        return objects
 
 
     def read_object_types_hierarchy(self, f_name):
@@ -351,6 +392,12 @@ class ActionModel:
             elif len(self.types_hierarchy.keys()) == 1 and supertype == 'objects':
                 domain_str += "\n\t{}".format('\n\t'.join(subtypes))
         domain_str += "\n)"
+
+        # Write constants
+        if len(self.constants) > 0:
+            f.write("\n(:constants")
+            [f.write(f"\n{' '.join(v)} - {k}") for k, v in self.constants.items()]
+            f.write("\n)\n")
 
         # Write predicates
         domain_str += "\n(:predicates"
