@@ -1,6 +1,6 @@
 from collections import defaultdict
 import numpy as np
-from NOLAM.Action import Action
+from nolam.algorithm.Action import Action
 
 
 class Trace:

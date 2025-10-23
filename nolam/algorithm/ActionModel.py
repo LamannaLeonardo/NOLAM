@@ -1,12 +1,10 @@
 import copy
 import itertools
 import os
-import random
 import re
-import warnings
 from collections import defaultdict
 
-from NOLAM.Operator import Operator
+from nolam.algorithm.Operator import Operator
 
 
 class ActionModel:

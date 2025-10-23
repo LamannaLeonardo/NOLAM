@@ -1,4 +1,4 @@
-from NOLAM.Operator import Operator
+from nolam.algorithm.Operator import Operator
 
 
 class Action(Operator):

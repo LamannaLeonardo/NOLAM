@@ -1,14 +1,15 @@
 import itertools
+import logging
 import math
 import re
 
 import numpy as np
 
-from NOLAM import Configuration
-from NOLAM.Action import Action
-from NOLAM.ActionModel import ActionModel
-from NOLAM.Observation import Observation
-from NOLAM.Trace import Trace
+from nolam.algorithm import Configuration
+from nolam.algorithm.Action import Action
+from nolam.algorithm.ActionModel import ActionModel
+from nolam.algorithm.Observation import Observation
+from nolam.algorithm.Trace import Trace
 
 
 class Learner:
@@ -19,6 +20,16 @@ class Learner:
     def count_traces(self, trace_names, action_model):
         traces = [self.parse_trace(t, action_model) for t in trace_names]
         for trace in traces:
+
+            # Check negative literals exist
+            neg_literals_count = sum([len(v) for o in trace.observations
+                                      for k, v in o.negative_literals.items()])
+            if neg_literals_count == 0:
+                logging.warning(f"There are no negative literals in trace {trace.name}. "
+                                f"NOLAM assumes trace observations to explicitly specify "
+                                f"both positive and negative literals.")
+
+
             for i in range(len(trace.observations) - 1):
 
                 prev_observation = trace.observations[i]

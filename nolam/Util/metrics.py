@@ -1,6 +1,6 @@
 import copy
 
-from NOLAM.ActionModel import ActionModel
+from nolam.algorithm.ActionModel import ActionModel
 import numpy as np
 
 def action_model_statistics(evaluated_model, gt_model):

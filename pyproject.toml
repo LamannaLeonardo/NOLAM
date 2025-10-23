@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["nolam", "nolam.*"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+[project]
+name = "nolam"
+version = "1.0.0"
+dynamic = ["dependencies"]
+requires-python = ">=3.8"
+authors = [
+  {name = "Leonardo Lamanna", email = "llamanna@fbk.eu"}
+]
+maintainers = [
+  {name = "Leonardo Lamanna", email = "llamanna@fbk.eu"}
+]
+description = "Action Model Learning from Noisy Traces: a Probabilistic Approach."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICEN[CS]E.*"]
+keywords = ["action model learning", "domain model learning", "action model acquisition"]
+classifiers = [
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+[project.urls]
+Homepage = "https://github.com/LamannaLeonardo/NOLAM"
+Documentation = "https://github.com/LamannaLeonardo/NOLAM"
+Repository = "https://github.com/LamannaLeonardo/NOLAM"
+"Bug Tracker" = "https://github.com/LamannaLeonardo/NOLAM/issues"

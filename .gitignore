@@ -160,5 +160,5 @@ cython_debug/
 .idea/
 .DS_Store
 __pycache__/
-NOLAM/__pycache__/
+nolam/algorithm/__pycache__/
 Analysis/Results/
